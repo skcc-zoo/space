@@ -1,0 +1,55 @@
+server:
+  port: 8083
+spring:
+  data:
+    rest:
+      basePath: /space/rest
+  profiles: default
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: localhost:9092
+      bindings:
+        input:
+          group: space
+          destination: animal
+          contentType: application/json
+        output:
+          destination: animal
+          contentType: application/json
+
+
+#feign:
+#  hystrix:
+#    enabled: true
+#
+#hystrix:
+# command:
+#   # 전역설정
+#   default:
+#     execution.isolation.thread.timeoutInMilliseconds: 610
+
+
+---
+server:
+  port: 8080
+
+spring:
+  profiles: docker
+  data:
+    rest:
+      basePath: /space/rest
+  cloud:
+    stream:
+      kafka:
+        binder:
+          brokers: my-kafka.kafka.svc.cluster.local:9092
+      bindings:
+        input:
+          group: space
+          destination: animal
+          contentType: application/json
+        output:
+          destination: animal
+          contentType: application/json
