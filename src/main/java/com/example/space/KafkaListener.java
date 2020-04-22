@@ -35,15 +35,15 @@ public class KafkaListener {
                 PersonPassed personPassed = new PersonPassed((HashMap<String, Object>) event.getContent());
 
                 // 사람이 나온 스페이스의 인원수 감소
-                Optional<Space> optionalSpace = spaceRepository.findById(personPassed.getFromId());
-                Space fromSpace = optionalSpace.get();
+                Optional<Space> optionalFromSpace = spaceRepository.findById(personPassed.getFromId());
+                Space fromSpace = optionalFromSpace.get();
                 fromSpace.setPopulation(fromSpace.getPopulation() - 1);
                 spaceRepository.save(fromSpace);
 
                 // 사람이 들어간 스페이스의 인원수 추가
                 Optional<Space> optionalToSpace = spaceRepository.findById(personPassed.getToId());
                 Space toSpace = optionalToSpace.get();
-                toSpace.setPopulation(fromSpace.getPopulation() + 1);
+                toSpace.setPopulation(toSpace.getPopulation() + 1);
                 spaceRepository.save(toSpace);
                 System.out.println("personPassedEvent processed.");
             } else if (event.getEventType().equals("GateCreated")) {

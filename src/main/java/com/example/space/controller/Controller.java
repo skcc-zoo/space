@@ -24,7 +24,9 @@ public class Controller {
         Integer currentPopulation = 0;
 
         for (Space space : spaces) {
-            currentPopulation = currentPopulation + space.getPopulation();
+            if(space.getPopulation() > 0) {
+                currentPopulation = currentPopulation + space.getPopulation();
+            }
         }
 
         return currentPopulation <= MAX_POPULATION;

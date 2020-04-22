@@ -17,7 +17,6 @@ import javax.persistence.*;
 public class Space {
     @Id
     private String id;
-    private String animal;
     private Integer population;
 
     @PostPersist
@@ -46,14 +45,6 @@ public class Space {
 
     public void setId(String id) {
         this.id = id;
-    }
-
-    public String getAnimal() {
-        return animal;
-    }
-
-    public void setAnimal(String animal) {
-        this.animal = animal;
     }
 
     public Integer getPopulation() {
