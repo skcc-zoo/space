@@ -7,16 +7,35 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import javax.annotation.PostConstruct;
 import java.util.List;
 
 @RequestMapping("/space")
 @RestController
 public class Controller {
 
-    final Integer MAX_POPULATION = 100;
+    private Integer MAX_POPULATION;
 
     @Autowired
     SpaceRepository spaceRepository;
+
+    @PostConstruct
+    public void setMAX_POPULATION() {
+        try {
+
+            this.MAX_POPULATION = Integer.valueOf(System.getenv("MAX_POPULATION"));
+            System.out.println("MAX_POPULATION set by env.");
+        } catch (Exception e) {
+            e.printStackTrace();
+            this.MAX_POPULATION = 100;
+            System.out.println("MAX_POPULATION set by default.");
+        }
+    }
+
+    @GetMapping("/max_population")
+    public Integer getMAX_POPULATION() {
+        return this.MAX_POPULATION;
+    }
 
     @GetMapping("/permission")
     public boolean checkMaxPopulation() {

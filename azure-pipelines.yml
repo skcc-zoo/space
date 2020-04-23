@@ -121,6 +121,12 @@ stages:
                             timeoutSeconds: 2
                             periodSeconds: 5
                             failureThreshold: 5
+                          env:
+                            valueFrom:
+                              configMapKeyRef:
+                                name: max-population-configmap
+                                key: MAX_POPULATION
+
               secretType: 'dockerRegistry'
               containerRegistryType: 'Azure Container Registry'
           - task: Kubernetes@1
