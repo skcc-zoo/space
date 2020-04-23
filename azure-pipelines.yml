@@ -122,6 +122,7 @@ stages:
                             periodSeconds: 5
                             failureThreshold: 5
                           env:
+                          - name: MAX_POPULATION
                             valueFrom:
                               configMapKeyRef:
                                 name: max-population-configmap
